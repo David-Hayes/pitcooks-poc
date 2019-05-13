@@ -1,0 +1,22 @@
+{
+  "name": "pitcooks",
+  "version": "1.0.0",
+  "description": "Pitcooks website",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/David-Hayes/pitcooks.git"
+  },
+  "author": "David Hayes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/David-Hayes/pitcooks/issues"
+  },
+  "homepage": "https://github.com/David-Hayes/pitcooks#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
