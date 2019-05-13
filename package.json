@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/index.js",
-    "server": "nodemon server/index.js"
+    "server": "nodemon server/index.js",
+    "lint": "eslint . --ext .json --ext .md",
+    "pretest": "npm run lint"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,9 @@
     "express": "^4.16.4"
   },
   "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-plugin-json": "^1.4.0",
+    "eslint-plugin-markdown": "^1.0.0",
     "nodemon": "^1.19.0"
   }
 }
