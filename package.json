@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server/index.js",
     "server": "nodemon server/index.js",
-    "lint": "eslint . --ext .json --ext .md",
+    "lint": "eslint server/**/*.js",
     "pretest": "npm run lint"
   },
   "repository": {
@@ -24,8 +24,8 @@
   },
   "devDependencies": {
     "eslint": "^5.16.0",
-    "eslint-plugin-json": "^1.4.0",
-    "eslint-plugin-markdown": "^1.0.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.2",
     "nodemon": "^1.19.0"
   }
 }
