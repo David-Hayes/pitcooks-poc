@@ -1,8 +1,21 @@
 // required libraries
 const express = require('express');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
 // create express app
 const app = express();
+
+// connect to mongoose db
+mongoose.connect(process.env.DATABASE_URL);
+
+// set up express application
+app.use(morgan('dev'));
+app.use(cookieParser());
+app.use(bodyParser());
 
 // routes
 require('./routes/api')(app);
