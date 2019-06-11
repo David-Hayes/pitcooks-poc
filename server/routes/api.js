@@ -30,7 +30,7 @@ module.exports = app => {
   // @route   GET /api/user/logout
   // @desc    Log user out
   // @access  Public
-  app.post(`${apiRoute}/user/logout`, (req, res) => {
+  app.get(`${apiRoute}/user/logout`, (req, res) => {
     req.logout();
     res.json({ success: true });
   });
