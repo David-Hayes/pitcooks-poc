@@ -5,6 +5,8 @@ const passport = require('passport');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const flash = require('connect-flash');
+const session = require('express-session');
 
 // create express app
 const app = express();
@@ -16,6 +18,12 @@ mongoose.connect(process.env.DATABASE_URL);
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser());
+
+// set up passport
+app.use(session({ secret: 'ilovepulledporkandbrisket' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 // routes
 require('./routes/api')(app);

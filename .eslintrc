@@ -3,6 +3,8 @@
   "rules": {
     "linebreak-style": 0,
     "arrow-parens": "off",
-    "import/newline-after-import": "off"
+    "import/newline-after-import": "off",
+    "comma-dangle": "off",
+    "max-len": "off"
   }
 }
