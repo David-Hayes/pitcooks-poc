@@ -15,6 +15,7 @@ module.exports = (app, passport) => {
   // @acesss  Public
   app.get(`${apiRoute}/user/status`, (req, res) => {
     if (req.isAuthenticated()) {
+      console.log(req.session.passport.user.local);
       res.json({ success: true, user: req.session.passport.user.local.email });
     } else {
       res.json({ loggedIn: false });
