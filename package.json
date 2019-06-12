@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/David-Hayes/pitcooks.git"
+    "url": "git+https://github.com/David-Hayes/pitcooks-poc.git"
   },
   "author": "David Hayes",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/David-Hayes/pitcooks/issues"
+    "url": "https://github.com/David-Hayes/pitcooks-poc/issues"
   },
-  "homepage": "https://github.com/David-Hayes/pitcooks#readme",
+  "homepage": "https://github.com/David-Hayes/pitcooks-poc#readme",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.19.0",

@@ -12,7 +12,9 @@ const session = require('express-session');
 const app = express();
 
 // connect to mongoose db
-mongoose.connect(process.env.DATABASE_URL);
+mongoose.connect(process.env.DATABASE_URL)
+  .then(() => console.log('MongoDB Connected...')) // eslint-disable-line no-console
+  .catch(err => console.log(err)); // eslint-disable-line no-console
 
 // config passport
 require('./config/passport')(passport);
@@ -20,7 +22,10 @@ require('./config/passport')(passport);
 // set up express application
 app.use(morgan('dev'));
 app.use(cookieParser());
-app.use(bodyParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 // set up passport
 app.use(session({ secret: 'ilovepulledporkandbrisket' }));
