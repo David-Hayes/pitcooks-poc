@@ -1,12 +1,12 @@
 // TODO babel-node
 
-module.exports = app => {
+module.exports = (app, passport) => {
   const apiRoute = '/api';
 
   // @route   GET /api/status
   // @desc    Check api routing is up an running
   // @acesss  Public
-  app.get(`${apiRoute}/status`, (req, res) => {
+  app.get(`${apiRoute}/apiStatus`, (req, res) => {
     res.json({ success: true });
   });
 
@@ -25,6 +25,7 @@ module.exports = app => {
   // @desc    Authenticate user
   // @access  Public
   app.post(`${apiRoute}/user/login`, (req, res) => {
+    res.json({ success: true });
   });
 
   // @route   GET /api/user/logout
@@ -39,5 +40,13 @@ module.exports = app => {
   // @desc    Authenticate user
   // @access  Public
   app.post(`${apiRoute}/user/register`, (req, res) => {
+    passport.authenticate('local-signup', (err, user) => {
+      if (err) res.json({ success: false, error_code: 1, error_message: err });
+      if (!user) {
+        res.json({ success: false, error_code: 2, error_message: 'User already exists' });
+      } else {
+        res.json({ success: true });
+      }
+    })(req, res);
   });
 };

@@ -14,6 +14,9 @@ const app = express();
 // connect to mongoose db
 mongoose.connect(process.env.DATABASE_URL);
 
+// config passport
+require('./config/passport')(passport);
+
 // set up express application
 app.use(morgan('dev'));
 app.use(cookieParser());
@@ -26,7 +29,7 @@ app.use(passport.session());
 app.use(flash());
 
 // routes
-require('./routes/api')(app);
+require('./routes/api')(app, passport);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
