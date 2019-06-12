@@ -8,7 +8,7 @@ const User = require('../models/User');
 module.exports = passport => {
   // serialize user into passport session
   passport.serializeUser((user, done) => {
-    done(null, user.id);
+    done(null, user);
   });
 
   // deserialize user from passport session
@@ -31,7 +31,7 @@ module.exports = passport => {
         if (err) return done(err);
 
         // check if there is a user
-        if (user) return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+        if (user) return done(null, false);
 
         // create user if one doesn't exist
         const newUser = new User();
@@ -46,6 +46,27 @@ module.exports = passport => {
           return done(null, newUser);
         });
       });
+    });
+  }));
+
+  // local login
+  passport.use('local-login', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true
+  }, (req, email, password, done) => {
+    User.findOne({ 'local.email': email }, (err, user) => {
+      // return any errors
+      if (err) return done(err);
+
+      // no user found
+      if (!user) return done(null, false);
+
+      // user found, password wrong
+      if (!user.validPassword(password)) return done(null, false);
+
+      // all ok
+      return done(null, user);
     });
   }));
 };

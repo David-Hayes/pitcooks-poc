@@ -15,6 +15,7 @@ module.exports = (app, passport) => {
   // @acesss  Public
   app.get(`${apiRoute}/user/status`, (req, res) => {
     if (req.isAuthenticated()) {
+      // console.log(req.session.passport.user.local);
       res.json({ success: true });
     } else {
       res.json({ loggedIn: false });
@@ -24,9 +25,22 @@ module.exports = (app, passport) => {
   // @route   POST /api/user/login
   // @desc    Authenticate user
   // @access  Public
-  app.post(`${apiRoute}/user/login`, (req, res) => {
-    res.json({ success: true });
-  });
+  // app.post(`${apiRoute}/user/login`, (req, res) => {
+  //   passport.authenticate('local-login', (err, user) => {
+  //     if (err) res.json({ success: false, error_code: 1, error_message: err });
+  //     if (!user) {
+  //       res.json({ success: false, error_code: 3, error_message: 'some error' });
+  //     } else {
+  //       console.log(user);
+  //       res.json({ success: true });
+  //     }
+  //   })(req, res);
+  // });
+  app.post(`${apiRoute}/user/login`, passport.authenticate('local-login', {
+    successRedirect: '/api/user/status', // redirect to the secure profile section
+    failureRedirect: '/login', // redirect back to the signup page if there is an error
+    failureFlash: true // allow flash messages
+  }));
 
   // @route   GET /api/user/logout
   // @desc    Log user out
