@@ -4,15 +4,24 @@ const bcrypt = require('bcrypt-nodejs');
 const userSchema = mongoose.Schema({
 
   local: {
-    email: String,
-    password: String,
-    name: String
+    email: {
+      type: String,
+      required: true
+    },
+    password: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    }
   }
 
 });
 
 // generating a hash
-userSchema.methods.generateHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+userSchema.methods.generateHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 
 // checking if password is valid
 userSchema.methods.validPassword = function (password) { return bcrypt.compareSync(password, this.local.password); }; // eslint-disable-line func-names

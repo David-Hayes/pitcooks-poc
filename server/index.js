@@ -12,7 +12,7 @@ const session = require('express-session');
 const app = express();
 
 // connect to mongoose db
-mongoose.connect(process.env.DATABASE_URL)
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
   .then(() => console.log('MongoDB Connected...')) // eslint-disable-line no-console
   .catch(err => console.log(err)); // eslint-disable-line no-console
 

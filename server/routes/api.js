@@ -1,4 +1,5 @@
 // TODO babel-node
+const User = require('../models/User');
 
 module.exports = (app, passport) => {
   const apiRoute = '/api';
@@ -15,7 +16,6 @@ module.exports = (app, passport) => {
   // @acesss  Public
   app.get(`${apiRoute}/user/status`, (req, res) => {
     if (req.isAuthenticated()) {
-      console.log(req.session.passport.user.local);
       res.json({ success: true, user: req.session.passport.user.local.email });
     } else {
       res.json({ loggedIn: false });
@@ -26,7 +26,7 @@ module.exports = (app, passport) => {
   // @desc    Authenticate user
   // @access  Public
   app.post(`${apiRoute}/user/login`, (req, res, next) => {
-    passport.authenticate('local-login', (err, user) => {
+    passport.authenticate('local', (err, user) => {
       if (err) res.json({ success: false, error_code: 1, error_message: err });
       if (!user) res.json({ success: false, error_code: 3, error_message: 'Username or password is wrong' });
       req.logIn(user, error => {
@@ -45,16 +45,31 @@ module.exports = (app, passport) => {
   });
 
   // @route   POST /api/user/register
-  // @desc    Authenticate user
+  // @desc    Register new user
   // @access  Public
   app.post(`${apiRoute}/user/register`, (req, res) => {
-    passport.authenticate('local-signup', (err, user) => {
-      if (err) res.json({ success: false, error_code: 1, error_message: err });
-      if (!user) {
-        res.json({ success: false, error_code: 2, error_message: 'User already exists' });
+    // check if user exists already
+    User.findOne({ 'local.email': req.body.email }, (err, user) => {
+      if (user) {
+        res.json({ success: false, error_code: 4, error_message: 'Email already in use' });
       } else {
-        res.json({ success: true });
+        // create new user
+        const newUser = new User({
+          local: {
+            email: req.body.email,
+            name: req.body.name
+          }
+        });
+        newUser.local.password = newUser.generateHash(req.body.password);
+
+        newUser.save()
+          .then(() => {
+            res.json({ success: true });
+          })
+          .catch(errD => {
+            res.json({ success: false, error_code: 1, error_message: errD });
+          });
       }
-    })(req, res);
+    });
   });
 };
