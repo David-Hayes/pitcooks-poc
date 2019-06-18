@@ -16,9 +16,9 @@ module.exports = (app, passport) => {
   // @acesss  Public
   app.get(`${apiRoute}/user/status`, (req, res) => {
     if (req.isAuthenticated()) {
-      res.json({ success: true, user: req.session.passport.user.local.email });
+      res.json({ success: true, loggedIn: true, user: req.session.passport.user.local.email });
     } else {
-      res.json({ loggedIn: false });
+      res.json({ success: true, loggedIn: false });
     }
   });
 
@@ -26,6 +26,7 @@ module.exports = (app, passport) => {
   // @desc    Authenticate user
   // @access  Public
   app.post(`${apiRoute}/user/login`, (req, res, next) => {
+    console.log(req.body);
     passport.authenticate('local', (err, user) => {
       if (err) res.json({ success: false, error_code: 1, error_message: err });
       if (!user) res.json({ success: false, error_code: 3, error_message: 'Username or password is wrong' });
