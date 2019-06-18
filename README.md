@@ -1,7 +1,5 @@
-# Pitcooks
+# Pitcooks Proof of Concept
 
-[![Build Status](https://travis-ci.org/David-Hayes/pitcooks.svg?branch=master)](https://travis-ci.org/David-Hayes/pitcooks)
+[![Build Status](https://api.travis-ci.org/David-Hayes/pitcooks-poc.svg?branch=master)](https://travis-ci.org/David-Hayes/pitcooks-poc)
 
-## API error codes
-1. Unknown error, see error message.
-2. Registration - user already exists in the database
+Proof of concept for Pitcooks website. POC focuses on authentication. 
