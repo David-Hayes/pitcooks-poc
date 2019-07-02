@@ -15,6 +15,14 @@ const userSchema = mongoose.Schema({
     name: {
       type: String,
       required: true
+    },
+    admin: {
+      type: Boolean,
+      default: false
+    },
+    recipes: {
+      type: Array,
+      default: []
     }
   }
 
